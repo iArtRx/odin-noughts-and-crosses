@@ -1,22 +1,21 @@
 * {
     margin: 0;
     padding: 0;
-    background-color: rgb(244, 244, 244);
+    background-color: rgb(235, 235, 235);
 }
 
 .gameboard {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    height: 1000px;
-    width: 1000px;
+    height: 900px;
+    width: 900px;
 }
 
 .board-square {
     height: 300px;
     width: 300px;
-    border: solid 1px rgb(158, 158, 158);
-    border-radius: 2rem;
+    border: solid 8px rgb(160, 160, 160);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,6 +23,28 @@
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
+[data-index = "0"], [data-index = "1"], [data-index = "2"] {
+    border-top: 8px solid rgb(235, 235, 235);
+}
+
+[data-index = "0"], [data-index = "3"], [data-index = "6"] {
+    border-left: 8px solid rgb(235, 235, 235);
+}
+
+[data-index = "2"], [data-index = "5"], [data-index = "8"] {
+    border-right: 8px solid rgb(235, 235, 235);
+}
+
+[data-index = "6"], [data-index = "7"], [data-index = "8"] {
+    border-bottom: 8px solid rgb(235, 235, 235);
+}
+
 .board-square:hover {
+    border: 8px solid rgb(120, 120, 120);
+    background-color: rgb(200, 200, 200);
+}
+
+[mark-value = "X"]:hover , [mark-value = "O"]:hover{
     border: 8px solid;
+    background-color: rgb(235, 235, 235);
 }
