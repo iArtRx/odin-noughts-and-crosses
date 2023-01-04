@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(244, 244, 244);
+}
+
+.gameboard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    height: 1000px;
+    width: 1000px;
+}
+
+.board-square {
+    height: 300px;
+    width: 300px;
+    border: solid 1px rgb(158, 158, 158);
+    border-radius: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10rem;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+.board-square:hover {
+    border: 8px solid;
+}
