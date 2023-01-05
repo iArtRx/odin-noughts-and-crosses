@@ -1,8 +1,26 @@
 const NoughtsAndCrosses = (() => {
+  const gameArena = document.querySelector(".game-arena");
+  const startMenu = document.querySelector(".start-menu");
+
+  const startGame = () => {
+    gameArena.style.display = "grid";
+    startMenu.style.display = "none";
+    const playerOne = document.getElementById("player-one");
+    const playerTwo = document.getElementById("player-two");
+  }
+
+  const start = document.querySelector("#start");
+  start.addEventListener("click", startGame)
+
+  const scoreboard = document.querySelectorAll(".scoreboard");
+  const renderScoreboard = () => {
+    
+  }
+
   const gameboardDisplay = document.querySelector(".gameboard");
   let gameboard = ["", "", "", "", "", "", "", "", ""];
 
-  const renderBoard = () => {
+  const renderGameboard = () => {
       for (let i = 0; i < gameboard.length; i++) {
           let square = document.createElement("div");
           square.classList.add("board-square");
@@ -22,19 +40,20 @@ const NoughtsAndCrosses = (() => {
           gameboard[squareIndex] = mark;;
           square.animate(
             [
-              // keyframes
               { transform: "scale(1)" },
               { transform: "scale(1.2)" },
               { transform: "scale(1)" },
             ],
             {
-              // options
               duration: 300,
               easing: "ease-out",
             }
           );
-          square.textContent = mark;
-          square.style.color = (mark === "X") ? "#3e5697" : "#ffcede";
+
+          const imgURL = (mark === "X") ? "./images/delete-cross.png": "./images/moon-hand-drawn-circle.png";
+          const markIcon = new Image();
+          markIcon.src = imgURL;
+          square.appendChild(markIcon);
           square.setAttribute("mark-value", mark);
           PlayerTurn.toggleTurn();
           const winner = checkWinner();
@@ -87,14 +106,16 @@ const PlayerTurn = (() => {
    
 
   return {
-    renderBoard: renderBoard,
+    startGame: startGame,
+    renderGameboard: renderGameboard,
     addMark: addMark,
   }
 })();
 
 
-// To render the gameboard:
-NoughtsAndCrosses.renderBoard();
+
+// To render the gameboard
+NoughtsAndCrosses.renderGameboard();
 NoughtsAndCrosses.addMark();
 
 

@@ -1,26 +1,91 @@
+@font-face {
+    font-family: "MouseMemoirs";
+    src: url("./fonts/MouseMemoirs-Regular.ttf") format("truetype");
+}
+
 * {
     margin: 0;
     padding: 0;
     background-color: rgb(235, 235, 235);
+    font-family: "MouseMemoirs", sans-serif;
 }
 
+.start-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    width: 100%;
+}
+
+.player-container {
+    display: flex;
+    padding: 4rem;
+}
+
+.player-card {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.player-card img {
+    width: 30%;
+    margin: auto;
+}
+
+.player-card input {
+    margin: 3rem;
+    font-size: 3rem;
+}
+
+.start-menu button {
+    border: none;
+    background-color: rgb(220, 220, 220);
+    padding: 1rem;
+    border-radius: 1rem;
+    font-size: 2rem;
+}
+
+.game-arena {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    height: 100vh;
+}
+
+input[type="text"] {
+    border: none;
+    text-align: center;
+    background-color: transparent;
+  }
+
+.gameboard-wrapper {
+    margin: 4rem; 
+}
+  
 .gameboard {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    height: 900px;
-    width: 900px;
+    border-collapse: collapse;
+    height: 3rem;
+    width: 3rem;
 }
 
 .board-square {
-    height: 300px;
-    width: 300px;
-    border: solid 8px rgb(160, 160, 160);
+    height: 20rem;
+    width: 20rem;
+    border: solid 0.5rem rgb(160, 160, 160);
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 10rem;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+.board-square img {
+    width: 50%;
 }
 
 [data-index = "0"], [data-index = "1"], [data-index = "2"] {
@@ -44,7 +109,12 @@
     background-color: rgb(200, 200, 200);
 }
 
-[mark-value = "X"]:hover , [mark-value = "O"]:hover{
-    border: 8px solid;
+[mark-value = "X"]:hover {
+    border: 8px solid #3e5697;
+    background-color: rgb(235, 235, 235);
+}
+
+[mark-value = "O"]:hover  {
+    border: 8px solid #ffcede;
     background-color: rgb(235, 235, 235);
 }

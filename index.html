@@ -8,13 +8,36 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>Noughts and Crosses</header>
 
     <main>
-        <div class="gameboard">
-
+        <div class="start-menu">
+           <div class="player-container">
+            <div class="player-card">  
+                <input id="player-one" type="text" value="Player One">
+                <img src="images/delete-cross.png">
+            </div>
+            <div class="player-card">
+                <input id="player-two" type="text" value="Player Two">
+                <img src="images/moon-hand-drawn-circle.png">
+            </div>
+           </div>
+            
+            <button id="start">Start Game</button>
         </div>
 
+        <div class="game-arena" style="display:none">
+            <div class="scoreboard" id="player-one-score">
+                <h3 class="player-name" id="player-one-name"></h3>
+                <img src="images/user-navy.png">
+            </div>
+            <div class="gameboard-wrapper">
+                <div class="gameboard"></div>
+            </div>
+            <div class="scoreboard" id="player-two-score">
+                <h3 class="player-name"id="player-two-name"></h3>
+                <img src="images/user-pink.png">
+            </div>
+        </div>
     </main>
 
     <script src="script.js"></script>
