@@ -7,6 +7,7 @@ const NoughtsAndCrosses = (() => {
   const startGame = () => {
     gameArena.style.display = "grid";
     startMenu.style.display = "none";
+    PlayerTurn.randomizeTurn();
     renderScoreboard(playerOne, playerTwo);
   }
 
@@ -41,8 +42,6 @@ const NoughtsAndCrosses = (() => {
           gameboardDisplay.appendChild(square);
       }
     }  
-
-   
 
   const addMark = () => {  
     const squares = document.querySelectorAll(".board-square"); 
@@ -85,11 +84,11 @@ const NoughtsAndCrosses = (() => {
           {
               const winnerString = "The Winner was";
               resultDisplay.innerHTML = (winnerMark === "X") ? `${winnerString} ${playerOne.value}!` : `${winnerString} ${playerTwo.value}!`;
+              
           }
           const replay = document.querySelector("#replay");
           replay.style.display = "block";
           replay.addEventListener("click", restart);
-
         }      
       });
     });
@@ -109,6 +108,7 @@ const NoughtsAndCrosses = (() => {
     replay.style.display = 'none';
   
     PlayerTurn.resetTurn();
+    PlayerTurn.randomizeTurn();
     renderScoreboard(playerOne, playerTwo);
   }
   
@@ -134,23 +134,29 @@ const NoughtsAndCrosses = (() => {
   };
   
 
-const PlayerTurn = (() => {
-  let currentTurn = "X";
-    
-  const toggleTurn = () => {
-    currentTurn = (currentTurn === "X") ? "O" : "X";
-  }
-
-  const getTurn = () => currentTurn;
-
-  const resetTurn = () => turn = "X";
-
-  return {
-    toggleTurn: toggleTurn,
-    getTurn: getTurn,
-    resetTurn: resetTurn
-  }
-})();
+  const PlayerTurn = (() => {
+    let currentTurn = "X";
+      
+    const toggleTurn = () => {
+      currentTurn = (currentTurn === "X") ? "O" : "X";
+    }
+  
+    const getTurn = () => currentTurn;
+  
+    const resetTurn = () => turn = "X";
+  
+    const randomizeTurn = () => {
+      currentTurn = (Math.random() < 0.5) ? "X" : "O";
+    }
+  
+    return {
+      toggleTurn: toggleTurn,
+      getTurn: getTurn,
+      resetTurn: resetTurn,
+      randomizeTurn: randomizeTurn
+    }
+  })();
+  
 
   return {
     startGame: startGame,
