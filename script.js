@@ -29,7 +29,6 @@ const NoughtsAndCrosses = (() => {
     playerTwoIcon.src = (activePlayer === "X") ? "./images/user-pink.png" : "./images/user-pink-full.png";
   }
 
-
   const gameboardDisplay = document.querySelector(".gameboard");
   let gameboard = ["", "", "", "", "", "", "", "", ""];
 
@@ -43,8 +42,10 @@ const NoughtsAndCrosses = (() => {
       }
     }  
 
-  const addMark = () => {
-    const squares = document.querySelectorAll(".board-square");
+   
+
+  const addMark = () => {  
+    const squares = document.querySelectorAll(".board-square"); 
     squares.forEach((square) => {
       square.addEventListener("click", () => {
         const squareIndex = square.getAttribute("data-index");
@@ -85,12 +86,33 @@ const NoughtsAndCrosses = (() => {
               const winnerString = "The Winner was";
               resultDisplay.innerHTML = (winnerMark === "X") ? `${winnerString} ${playerOne.value}!` : `${winnerString} ${playerTwo.value}!`;
           }
+          const replay = document.querySelector("#replay");
+          replay.style.display = "block";
+          replay.addEventListener("click", restart);
+
         }      
       });
     });
   }
 
-  const checkWinner = () => {
+  const restart = () => {
+    const squares = document.querySelectorAll('.board-square');
+    squares.forEach((square) => {
+      square.innerHTML = '';
+      square.setAttribute('mark-value', '');
+    });
+    gameboard = ['', '', '', '', '', '', '', '', ''];
+  
+    const resultDisplay = document.querySelector('.result-display');
+    resultDisplay.innerHTML = '';
+    const replay = document.querySelector('#replay');
+    replay.style.display = 'none';
+  
+    PlayerTurn.resetTurn();
+    renderScoreboard(playerOne, playerTwo);
+  }
+  
+    const checkWinner = () => {
     const combinations = [    
       [0, 1, 2],
       [3, 4, 5],
@@ -121,9 +143,12 @@ const PlayerTurn = (() => {
 
   const getTurn = () => currentTurn;
 
+  const resetTurn = () => turn = "X";
+
   return {
     toggleTurn: toggleTurn,
     getTurn: getTurn,
+    resetTurn: resetTurn
   }
 })();
 

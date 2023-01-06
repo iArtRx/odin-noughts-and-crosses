@@ -46,7 +46,7 @@ main {
     font-size: 3rem;
 }
 
-.start-menu button {
+.start-menu button, #replay {
     border: none;
     background-color: rgb(220, 220, 220);
     padding: 1rem;
@@ -155,5 +155,9 @@ input[type="text"] {
 .result-display {
     font-size: 4rem;
     text-align: center;
-    padding: 4rem;
+    padding: 2rem;
+}
+
+#replay {
+    margin: auto;
 }
