@@ -10,12 +10,18 @@
     font-family: "MouseMemoirs", sans-serif;
 }
 
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
 .start-menu {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 70vh;
     width: 100%;
 }
 
@@ -50,7 +56,7 @@
 
 .game-arena {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: minmax(200px, 1fr) minmax(400px, 2fr) minmax(200px, 1fr);
     height: 100vh;
 }
 
@@ -60,28 +66,37 @@ input[type="text"] {
     background-color: transparent;
   }
 
+#best-of {
+    font-size: 1.5rem;
+    margin: 1rem;
+    text-align: center;
+}
+
+#game-length {
+    font-size: 1.5rem;
+    width: 15%;
+}
+
 .gameboard-wrapper {
-    margin: 4rem; 
+    margin: 4rem;
+     
 }
   
 .gameboard {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    border-collapse: collapse;
-    height: 3rem;
-    width: 3rem;
-}
+    grid-template-columns: repeat(3, minmax(10rem, 20rem));
+    grid-template-rows: repeat(3, minmax(10rem, 20rem));
+    gap: 0;
+    justify-content: center;
+  }
+  
 
 .board-square {
-    height: 20rem;
-    width: 20rem;
     border: solid 0.5rem rgb(160, 160, 160);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 10rem;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .board-square img {
@@ -89,32 +104,56 @@ input[type="text"] {
 }
 
 [data-index = "0"], [data-index = "1"], [data-index = "2"] {
-    border-top: 8px solid rgb(235, 235, 235);
+    border-top: 1rem solid rgb(235, 235, 235);
 }
 
 [data-index = "0"], [data-index = "3"], [data-index = "6"] {
-    border-left: 8px solid rgb(235, 235, 235);
+    border-left: 1rem solid rgb(235, 235, 235);
 }
 
 [data-index = "2"], [data-index = "5"], [data-index = "8"] {
-    border-right: 8px solid rgb(235, 235, 235);
+    border-right: 1rem solid rgb(235, 235, 235);
 }
 
 [data-index = "6"], [data-index = "7"], [data-index = "8"] {
-    border-bottom: 8px solid rgb(235, 235, 235);
+    border-bottom: 1rem solid rgb(235, 235, 235);
 }
 
 .board-square:hover {
-    border: 8px solid rgb(120, 120, 120);
+    border: 1rem solid rgb(120, 120, 120);
     background-color: rgb(200, 200, 200);
 }
 
 [mark-value = "X"]:hover {
-    border: 8px solid #3e5697;
+    border: 1rem solid #3e5697;
     background-color: rgb(235, 235, 235);
 }
 
 [mark-value = "O"]:hover  {
-    border: 8px solid #ffcede;
+    border: 1rem solid #ffcede;
     background-color: rgb(235, 235, 235);
+}
+
+.scoreboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+}
+
+.scoreboard h3 {
+    font-size: 3rem;
+    text-align: center;
+}
+
+.user-icon {
+    width: 50%;
+    margin: auto;
+    margin-top: 3rem;
+}
+
+.result-display {
+    font-size: 4rem;
+    text-align: center;
+    padding: 4rem;
 }
