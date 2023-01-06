@@ -12,9 +12,11 @@
 
 main {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    position: relative;
 }
 
 .start-menu {
@@ -25,20 +27,30 @@ main {
     width: 100%;
 }
 
+footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 1rem;
+    font-size: 1.5rem;
+}
+
 .player-container {
     display: flex;
-    padding: 4rem;
+    
 }
 
 .player-card {
     display: flex;
     flex-direction: column;
     text-align: center;
+   
 }
 
 .player-card img {
     width: 30%;
     margin: auto;
+    
 }
 
 .player-card input {
@@ -148,6 +160,7 @@ input[type="text"] {
     flex-direction: column;
     justify-content: center;
     margin: auto;
+    margin-top: 20rem;
 }
 
 .scoreboard h3 {
