@@ -134,6 +134,15 @@ input[type="text"] {
     background-color: rgb(235, 235, 235);
 }
 
+.winner-navy img, .winner-navy, .winner-navy:hover  {
+    background-color: #c3cde8;
+}
+
+
+.winner-pink img, .winner-pink, .winner-pink:hover  {
+    background-color: #f4a9c2;
+}
+
 .scoreboard {
     display: flex;
     flex-direction: column;
