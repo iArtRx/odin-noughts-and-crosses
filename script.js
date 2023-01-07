@@ -3,7 +3,9 @@ const NoughtsAndCrosses = (() => {
   const startMenu = document.querySelector(".start-menu");
   const playerOne = document.getElementById("player-one");
   const playerTwo = document.getElementById("player-two");
+  const endMenu = document.querySelector(".end-menu");
   
+  // Function for Start Button.
   const startGame = () => {
     gameArena.style.display = "grid";
     startMenu.style.display = "none";
@@ -11,15 +13,12 @@ const NoughtsAndCrosses = (() => {
     renderScoreboard(playerOne, playerTwo);
   }
 
-  const start = document.querySelector("#start");
-  start.addEventListener("click", startGame)
-
+  document.querySelector("#start").addEventListener("click", startGame);
+  
+  // Renders Scoreboard, changes icon depending on the active player.
   const renderScoreboard = (playerOne, playerTwo) => {
-    const playerOneName = document.getElementById("player-one-name");
-    const playerTwoName = document.getElementById("player-two-name");
-
-    playerOneName.textContent = playerOne.value;
-    playerTwoName.textContent = playerTwo.value;
+    document.getElementById("player-one-name").textContent = playerOne.value;
+    document.getElementById("player-two-name").textContent = playerTwo.value;
 
     const activePlayer = PlayerTurn.getTurn();
 
@@ -30,6 +29,7 @@ const NoughtsAndCrosses = (() => {
     playerTwoIcon.src = (activePlayer === "X") ? "./images/user-pink.png" : "./images/user-pink-full.png";
   }
 
+  // Initialises gameboard display.
   const gameboardDisplay = document.querySelector(".gameboard");
   let gameboard = ["", "", "", "", "", "", "", "", ""];
 
@@ -42,15 +42,16 @@ const NoughtsAndCrosses = (() => {
           gameboardDisplay.appendChild(square);
       }
     }
-    
+  
+  // Variable determines end of game, boolean ensures that gameboard is locked after game has ended.  
   let gameover = false;
 
   const addMark = () => {  
-    const squares = document.querySelectorAll(".board-square"); 
-    squares.forEach((square) => {
+    document.querySelectorAll(".board-square").forEach((square) => {
       square.addEventListener("click", () => {
         if (!gameover) {
           const squareIndex = square.getAttribute("data-index");
+          
           // Check to see if square is occupied, if not then place the active player's mark with animation.
           if (gameboard[squareIndex] == "") {
             const mark = PlayerTurn.getTurn();
@@ -66,16 +67,19 @@ const NoughtsAndCrosses = (() => {
                 easing: "ease-out",
               }
             );
+            
             // Image used to mark player and its folder location.  
             const markURL = (mark === "X") ? "./images/delete-cross.png": "./images/moon-hand-drawn-circle.png";
             const markIcon = new Image();
             markIcon.src = markURL;
             square.appendChild(markIcon);
             square.setAttribute("mark-value", mark);
+            
             // Toggle player turn and updates the scoreboard to indicate this.
             PlayerTurn.toggleTurn();
             renderScoreboard(playerOne, playerTwo);
-            // Check result and displays appropitate messagel;
+            
+            // Check result and displays appropitate message.
             const winner = checkWinner();
             const resultDisplay = document.querySelector(".result-display");
             const winnerMark = gameboard[winner[0]];
@@ -88,16 +92,20 @@ const NoughtsAndCrosses = (() => {
             {   
                 const winnerString = "The Winner was";
                 resultDisplay.innerHTML = (winnerMark === "X") ? `${winnerString} ${playerOne.value}!` : `${winnerString} ${playerTwo.value}!`;
-  
+
+                // Iterates winning combination, selects square by data-index and adds a class based on victory mark.
                 for (let index of winner) {
                   const winSquare = document.querySelector(`[data-index="${index}"]`);
                   winSquare.classList.add((winnerMark === "X" ? "winner-navy" : "winner-pink"));
                 }
                 gameover = true;
             }
-            const replay = document.querySelector("#replay");
-            replay.style.display = "block";
-            replay.addEventListener("click", restart);
+
+            endMenu.style.display = "flex";
+            
+            document.querySelector("#replay").addEventListener("click", restart);
+            document.querySelector("#return-main").addEventListener("click", returnToMain);
+
           }      
         }
       });
@@ -105,23 +113,31 @@ const NoughtsAndCrosses = (() => {
   }
   
   const restart = () => {
-    const squares = document.querySelectorAll('.board-square');
-    squares.forEach((square) => {
+    // Reset the gameboard to remove winner classes and values for all squares
+    document.querySelectorAll('.board-square').forEach((square) => {
       square.innerHTML = '';
       square.setAttribute('mark-value', '');
       square.classList.remove("winner-navy", "winner-pink")
     });
     gameboard = ['', '', '', '', '', '', '', '', ''];
     gameover = false;
-  
+    
+    // Clear the result display and hide buttons
     const resultDisplay = document.querySelector('.result-display');
     resultDisplay.innerHTML = '';
-    const replay = document.querySelector('#replay');
-    replay.style.display = 'none';
+    endMenu.style.display = 'none';
   
+    // Reset and randomise turn order
     PlayerTurn.resetTurn();
     PlayerTurn.randomizeTurn();
+
     renderScoreboard(playerOne, playerTwo);
+  }
+
+  const returnToMain = () => {
+    restart();
+    gameArena.style.display = "none";
+    startMenu.style.display = "flex";
   }
   
     const checkWinner = () => {

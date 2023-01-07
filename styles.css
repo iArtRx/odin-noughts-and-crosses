@@ -58,7 +58,7 @@ footer {
     font-size: 3rem;
 }
 
-.start-menu button, #replay {
+.start-menu button, #replay, #return-main {
     border: none;
     background-color: rgb(220, 220, 220);
     padding: 1rem;
@@ -180,6 +180,13 @@ input[type="text"] {
     padding: 2rem;
 }
 
-#replay {
-    margin: auto;
+.end-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+#replay, #return-main {
+    margin: 0 1rem;
+}
+
