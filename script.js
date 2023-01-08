@@ -1,12 +1,42 @@
 const NoughtsAndCrosses = (() => {
   const gameArena = document.querySelector(".game-arena");
   const startMenu = document.querySelector(".start-menu");
-  const playerOne = document.getElementById("player-one");
-  const playerTwo = document.getElementById("player-two");
   const endMenu = document.querySelector(".end-menu");
+
+  // Factory function to create Player objects, storing name, score and icon urls.
+  const Player = (name, active, inactive, markURL) => {
+    let score = 0;
+
+    const mark = () => {
+      const markIcon = new Image();
+      markIcon.src = markURL;
+      return markIcon;
+    }
+
+    const setName = (userName) => {
+      name = userName;
+    }
+
+    return {
+      name: name,
+      score: score,
+      setName : setName,
+      active: active,
+      inactive: inactive,
+      markURL: markURL,
+      mark: mark
+    }
+  }
+
+  // Create players
+  const playerOne = Player(document.getElementById("player-one").value, "./images/user-navy-full.png", "./images/user-navy.png", "./images/cross.png");
+  const playerTwo = Player(document.getElementById("player-two").value, "./images/user-pink-full.png", "./images/user-pink.png", "./images/nought.png");
+
   
   // Function for Start Button.
   const startGame = () => {
+    playerOne.setName(document.getElementById("player-one").value);
+    playerTwo.setName(document.getElementById("player-two").value);
     gameArena.style.display = "grid";
     startMenu.style.display = "none";
     PlayerTurn.randomizeTurn();
@@ -17,16 +47,16 @@ const NoughtsAndCrosses = (() => {
   
   // Renders Scoreboard, changes icon depending on the active player.
   const renderScoreboard = (playerOne, playerTwo) => {
-    document.getElementById("player-one-name").textContent = playerOne.value;
-    document.getElementById("player-two-name").textContent = playerTwo.value;
+    document.getElementById("player-one-name").textContent = playerOne.name;
+    document.getElementById("player-two-name").textContent = playerTwo.name;
 
     const activePlayer = PlayerTurn.getTurn();
 
     let playerOneIcon = document.querySelector("#player-one-score .user-icon");
     let playerTwoIcon = document.querySelector("#player-two-score .user-icon");
 
-    playerOneIcon.src = (activePlayer === "X") ? "./images/user-navy-full.png" : "./images/user-navy.png";
-    playerTwoIcon.src = (activePlayer === "X") ? "./images/user-pink.png" : "./images/user-pink-full.png";
+    playerOneIcon.src = (activePlayer === "X") ? playerOne.active : playerOne.inactive;
+    playerTwoIcon.src = (activePlayer === "X") ? playerTwo.inactive : playerTwo.active;
   }
 
   // Initialises gameboard display.
@@ -68,10 +98,8 @@ const NoughtsAndCrosses = (() => {
               }
             );
             
-            // Image used to mark player and its folder location.  
-            const markURL = (mark === "X") ? "./images/delete-cross.png": "./images/moon-hand-drawn-circle.png";
-            const markIcon = new Image();
-            markIcon.src = markURL;
+            // Get player mark depending on active player.  
+            const markIcon= (mark === "X") ? playerOne.mark() : playerTwo.mark();
             square.appendChild(markIcon);
             square.setAttribute("mark-value", mark);
             
@@ -91,7 +119,7 @@ const NoughtsAndCrosses = (() => {
             else
             {   
                 const winnerString = "The Winner was";
-                resultDisplay.innerHTML = (winnerMark === "X") ? `${winnerString} ${playerOne.value}!` : `${winnerString} ${playerTwo.value}!`;
+                resultDisplay.innerHTML = (winnerMark === "X") ? `${winnerString} ${playerOne.name}!` : `${winnerString} ${playerTwo.name}!`;
 
                 // Iterates winning combination, selects square by data-index and adds a class based on victory mark.
                 for (let index of winner) {
